@@ -31,3 +31,12 @@ The seed is derived from the selected network settings and signal identifier usi
 This metric measures fragmentation conditional on survivors. It does not measure total service delivered, capacity, latency, resilience to targeted attacks, recovery time, or the cost of adding links. A high score at a high failure rate can still mean that very few nodes remain, so always inspect the failure-rate setting and survivor count.
 
 The current model reports both the fraction of original nodes in the largest component and the fraction of surviving nodes in the largest component. A future model should compare random with targeted failures. Do not use this toy result to make engineering, safety, or investment decisions.
+
+## Additional browser experiment families
+
+The current experiment selector exposes two additional synthetic models:
+
+- **Swarm exploration:** a 24 × 24 grid, randomly placed blocked cells, and simple agents that move to neighboring free cells. The score is the share of reachable cells visited during 90 movement steps. Agent behavior is intentionally minimal; it is not a validated ant-colony or multi-robot algorithm.
+- **Energy resilience:** a capped storage reservoir is updated over 120 time steps using stochastic generation and demand. The primary score is the percentage of steps where demand is fully served; average stored reserve and unmet energy are secondary diagnostics. Units are illustrative and are not calibrated to a real installation.
+
+All three families use seeded pseudo-randomness and 100 trials by default. The selected signal identifier and model inputs determine the seed. Results are reproducible for the same code version and settings, but they are not empirical measurements. Domain-to-model assignment is a transparent keyword heuristic. A daily prompt may still describe a research question broader than the toy model can answer; the interface must disclose that mismatch rather than implying the simulation validates the prompt.
