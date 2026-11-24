@@ -1,34 +1,36 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-const today=new Date().toISOString().slice(0,10);
-const seed=Number(today.replaceAll("-",""));
-function pick(items,offset=0){return items[(Math.floor(seed/(offset+1))+offset*17)%items.length];}
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+const ROOT=resolve(dirname(fileURLToPath(import.meta.url)),"..");
 const domains=[
-{name:"BIOLOGY + COMPUTING",a:"mycelium networks",b:"distributed computers",verb:"route information",question:"Can local rules create robust global coordination?"},
-{name:"MATERIALS + ENERGY",a:"phase-change materials",b:"passive cooling",verb:"store and release heat",question:"Can a building stay comfortable with less active cooling?"},
-{name:"ROBOTICS + ECOLOGY",a:"swarm robotics",b:"ant foraging",verb:"coordinate movement",question:"How little communication does a useful swarm need?"},
-{name:"OCEANS + SENSORS",a:"ocean currents",b:"low-power sensors",verb:"map hidden patterns",question:"Can sparse measurements reveal a moving system?"},
-{name:"SPACE + AGRICULTURE",a:"closed-loop habitats",b:"vertical farming",verb:"recycle scarce resources",question:"Which resource becomes the first bottleneck in a sealed habitat?"},
-{name:"NETWORKS + PHYSICS",a:"percolation theory",b:"resilient networks",verb:"survive random failures",question:"When does a connected system stop being connected?"},
-{name:"NEUROSCIENCE + SOFTWARE",a:"neural plasticity",b:"adaptive software",verb:"adapt to changing signals",question:"Can a system learn useful behavior from local feedback alone?"},
-{name:"GEOMETRY + ARCHITECTURE",a:"minimal surfaces",b:"lightweight structures",verb:"distribute mechanical stress",question:"Which geometry gives the best strength-to-material trade-off?"},
-{name:"AGRICULTURE + WATER",a:"root systems",b:"distributed irrigation",verb:"allocate scarce water",question:"Can local sensing reduce water waste without central control?"},
-{name:"ASTRONOMY + COMPUTING",a:"event detection",b:"distributed telescopes",verb:"combine sparse observations",question:"How much can coordinated small instruments infer together?"}
+{name:"NETWORKS + PHYSICS",a:"percolation theory",b:"resilient networks",question:"When does a connected system stop being connected?",experiment:"Build a ring network with local links. Remove nodes randomly, then measure the largest surviving connected component across repeated trials.",variables:["network size","local connection radius","node failure rate"],caveat:"A simplified graph model; not a validated model of real infrastructure."},
+{name:"ROBOTICS + ECOLOGY",a:"swarm robotics",b:"ant foraging",question:"How little communication does a useful swarm need?",experiment:"Compare agents that use only local signals with agents that receive a shared global signal. Measure time to reach a target and the number of redundant visits.",variables:["agent count","signal radius","communication delay"],caveat:"A conceptual experiment prompt; no ant or robot field data is simulated."},
+{name:"MATERIALS + ENERGY",a:"phase-change materials",b:"passive cooling",question:"Can a building stay comfortable with less active cooling?",experiment:"Define a simple heat-balance model and compare peak temperature under different thermal storage capacities and external heat loads.",variables:["thermal capacity","heat input","cooling interval"],caveat:"A prompt for a future physical model; no measured material properties are supplied."},
+{name:"OCEANS + SENSORS",a:"ocean currents",b:"low-power sensors",question:"Can sparse measurements reveal a moving system?",experiment:"Compare reconstruction error as sensor count and sampling interval change in a synthetic moving field.",variables:["sensor count","sampling interval","noise level"],caveat:"Synthetic-data proposal only; not an ocean forecast."},
+{name:"SPACE + AGRICULTURE",a:"closed-loop habitats",b:"vertical farming",question:"Which resource becomes the first bottleneck in a sealed habitat?",experiment:"Create a resource budget for water, nutrients and energy. Vary replenishment and demand to identify the first depleted resource.",variables:["water recovery","nutrient demand","energy budget"],caveat:"Conceptual resource-budget exercise, not a habitat safety assessment."},
+{name:"NEUROSCIENCE + SOFTWARE",a:"neural plasticity",b:"adaptive software",question:"Can a system adapt using only local feedback?",experiment:"Compare fixed and adaptive rule sets under a changing synthetic input. Track error and recovery after a distribution shift.",variables:["adaptation rate","feedback delay","shift magnitude"],caveat:"Synthetic analogy only; it does not model a biological brain."},
+{name:"GEOMETRY + ARCHITECTURE",a:"minimal surfaces",b:"lightweight structures",question:"Which geometry offers a better strength-to-material trade-off?",experiment:"Compare simplified load paths across candidate geometries while holding material quantity and boundary conditions constant.",variables:["geometry","load position","material budget"],caveat:"A design exploration prompt, not structural engineering advice."},
+{name:"AGRICULTURE + WATER",a:"root systems",b:"distributed irrigation",question:"Can local sensing reduce water waste without central control?",experiment:"Compare scheduled and feedback-based irrigation in a synthetic soil-moisture model. Track water use and time below a target moisture level.",variables:["sensor threshold","water pulse size","soil retention"],caveat:"Synthetic model prompt; real crops and soils require measured parameters."},
+{name:"ASTRONOMY + COMPUTING",a:"event detection",b:"distributed telescopes",question:"How much can coordinated small instruments infer together?",experiment:"Vary observation overlap and noise in a synthetic event-detection task. Measure missed events and false alarms.",variables:["observation overlap","sensor noise","detection threshold"],caveat:"Synthetic exercise; not an astronomical discovery."},
+{name:"BIOLOGY + COMPUTING",a:"mycelium networks",b:"distributed computers",question:"Can local rules create robust global coordination?",experiment:"Compare local routing strategies on a graph with random node failures. Measure delivery success and network fragmentation.",variables:["routing rule","connection density","failure rate"],caveat:"Cross-disciplinary analogy; biological networks are not computer networks."}
 ];
 const templates=[
-{title:"What if {a} could think like {b}?",hook:"Borrow one mechanism from {a} and apply it to {b}. The interesting behavior may emerge from the rules, not the components.",experiment:"Build a toy model where agents observe only nearby states. Let them {verb}, then remove a random fraction of connections and compare recovery. Record the assumptions before interpreting the result.",variables:["local rules","connection density","failure rate"],caveat:"Conceptual model only. It does not establish real-world feasibility or performance."},
-{title:"The hidden limit of {a}",hook:"Every system has a bottleneck. This experiment searches for the point where a small change causes a surprisingly large effect.",experiment:"Vary one resource at a time in a simplified model of {a}. Track throughput, waste and recovery as the system approaches its limit. Repeat with different starting conditions.",variables:["resource budget","demand","recovery time"],caveat:"Illustrative model; real systems need measured parameters and domain validation."},
-{title:"Can {b} survive without a central brain?",hook:"What happens when coordination is pushed to the edges and no single component has the full picture?",experiment:"Give each agent a small rule set and local information. Let the group {verb}, then compare centralized and decentralized outcomes under identical disturbances.",variables:["agent count","local visibility","message delay"],caveat:"A simulation prompt, not evidence that a real deployment would work."},
-{title:"A tiny experiment in {a}",hook:"A cross-disciplinary question: can a mechanism from one field reveal a useful design principle in another?",experiment:"Represent the system with a small set of interacting parts. Change {v1} while holding the other variables fixed; then repeat with {v2}. Compare outcomes across at least 100 deterministic trials.",variables:["{v1}","{v2}","disturbance level"],caveat:"The result depends on chosen assumptions. It is a hypothesis generator, not a scientific finding."}
+{title:"What can {a} teach us about {b}?",hook:"A mechanism from one field may offer a useful lens for another. The point is to make the analogy precise enough to test—and identify where it breaks."},
+{title:"Find the tipping point in {a}",hook:"Many systems change gradually until one threshold causes a disproportionate shift. This prompt asks where that threshold might be."},
+{title:"Can {b} work with less control?",hook:"What changes when coordination is distributed instead of directed from one central point? Separate measurable behavior from the metaphor."}
 ];
-const domain=pick(domains,3),template=pick(templates,11);
-const fill=s=>s.replaceAll("{a}",domain.a).replaceAll("{b}",domain.b).replaceAll("{verb}",domain.verb).replaceAll("{v1}",domain.a+" budget").replaceAll("{v2}",domain.b+" density");
-const signal={date:today,id:"FS-"+today.replaceAll("-",""),domain:domain.name,title:fill(template.title),hook:fill(template.hook),experiment:fill(template.experiment),variables:template.variables.map(fill),question:domain.question,caveat:template.caveat,generated_by:"FUTURE//SIGNAL deterministic generator",model:"rules-v2"};
-if(!signal.title||!signal.experiment||!signal.question||!Array.isArray(signal.variables)||signal.variables.length<2)throw new Error("Generated signal failed validation");
-await mkdir("data/archive",{recursive:true});
-await writeFile("data/daily.json",JSON.stringify(signal,null,2)+"\n");
-let archive={updated:today,items:[]};try{archive=JSON.parse(await readFile("data/archive/index.json","utf8"));}catch{}
-const items=Array.isArray(archive.items)?archive.items:[];
-archive.items=[{...signal},...items.filter(x=>x.date!==today)].slice(0,365);
-archive.updated=today;
-await writeFile("data/archive/index.json",JSON.stringify(archive,null,2)+"\n");
-console.log("Generated "+signal.id+": "+signal.title+" | archive: "+archive.items.length);
+export function buildSignal(date){
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||Number.isNaN(Date.parse(date+"T00:00:00Z"))||new Date(date+"T00:00:00Z").toISOString().slice(0,10)!==date)throw new Error("SIGNAL_DATE must be a valid YYYY-MM-DD date");
+ const seed=Number(date.replaceAll("-",""));const domain=domains[(seed*7+Math.floor(seed/11))%domains.length],template=templates[(seed*3+Math.floor(seed/7))%templates.length];
+ return {date,id:"FS-"+date.replaceAll("-",""),domain:domain.name,title:template.title.replace("{a}",domain.a).replace("{b}",domain.b),hook:template.hook,experiment:domain.experiment,variables:domain.variables,question:domain.question,caveat:domain.caveat,generated_by:"FUTURE//SIGNAL deterministic rules engine",model:"rules-v3",status:"hypothesis-prompt"};
+}
+export function validateSignal(s){return Boolean(s&&s.date&&s.id==="FS-"+s.date.replaceAll("-","")&&s.domain&&s.title&&s.hook&&s.experiment&&s.question&&s.caveat&&s.status==="hypothesis-prompt"&&Array.isArray(s.variables)&&s.variables.length>=3&&s.variables.every(Boolean));}
+export async function generate({root=ROOT,date=process.env.SIGNAL_DATE||new Date().toISOString().slice(0,10)}={}){
+ const signal=buildSignal(date);if(!validateSignal(signal))throw new Error("Generated signal failed schema validation");
+ const dailyPath=resolve(root,"data/daily.json"),archivePath=resolve(root,"data/archive/index.json");
+ await mkdir(dirname(archivePath),{recursive:true});await writeFile(dailyPath,JSON.stringify(signal,null,2)+"\n");
+ let archive={updated:date,items:[]};try{archive=JSON.parse(await readFile(archivePath,"utf8"));}catch(e){if(e.code!=="ENOENT")throw e;}
+ const previous=Array.isArray(archive.items)?archive.items:[];archive.items=[signal,...previous.filter(x=>x.id!==signal.id)].slice(0,365);archive.updated=date;
+ await writeFile(archivePath,JSON.stringify(archive,null,2)+"\n");return {signal,archive};
+}
+if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){const result=await generate();console.log("Generated "+result.signal.id+": "+result.signal.title+" | archive: "+result.archive.items.length);}
