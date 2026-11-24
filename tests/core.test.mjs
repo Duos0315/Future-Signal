@@ -5,6 +5,7 @@ import {tmpdir} from "node:os";
 import {join,resolve} from "node:path";
 import {generate} from "../scripts/generate.mjs";
 import {buildSignal,validateSignal} from "../scripts/generate.mjs";
+import {readFile as readText} from "node:fs/promises";
 import {runTrial,runExperiment} from "../scripts/lib/network.mjs";
 test("daily signal is valid, dated and reproducible",()=>{const a=buildSignal("2026-11-24"),b=buildSignal("2026-11-24");assert.deepEqual(a,b);assert.equal(validateSignal(a),true);assert.equal(a.id,"FS-20261124");});
 test("generator rejects invalid dates",()=>{assert.throws(()=>buildSignal("2026-02-30"));assert.throws(()=>buildSignal("tomorrow"));});
@@ -12,3 +13,5 @@ test("generator preserves archive records and caps history",async()=>{const root
 test("network trial handles total survival and total failure",()=>{const full=runTrial({nodes:12,degree:2,failureRate:0},()=>0.99);assert.equal(full.connectivity,100);assert.equal(full.survivors,12);const none=runTrial({nodes:12,degree:2,failureRate:100},()=>0);assert.equal(none.connectivity,0);assert.equal(none.survivors,0);});
 test("network experiment is deterministic and bounded",()=>{const args={nodes:60,degree:3,failureRate:20,trials:100,seed:"test"};const a=runExperiment(args),b=runExperiment(args);assert.deepEqual(a,b);assert.equal(a.results.length,100);assert.ok(a.mean>=0&&a.mean<=100);});
 test("network model rejects invalid inputs",()=>{assert.throws(()=>runTrial({nodes:1,degree:1,failureRate:0},Math.random));assert.throws(()=>runTrial({nodes:12,degree:0,failureRate:0},Math.random));assert.throws(()=>runTrial({nodes:12,degree:2,failureRate:101},Math.random));assert.throws(()=>runExperiment({nodes:12,degree:2,failureRate:0,trials:0}));});
+
+test("page contains every DOM element referenced by the app",async()=>{const html=await readText("index.html","utf8"),app=await readText("app.js","utf8");const ids=new Set([...html.matchAll(/\\bid="([^"]+)"/g)].map(m=>m[1]));const refs=[...app.matchAll(/\\$\\("([^"]+)"\\)/g)].map(m=>m[1]);const missing=[...new Set(refs.filter(id=>!ids.has(id)))];assert.deepEqual(missing,[]);assert.match(html,/<script type="module" src="app\\.js"><\\/script>/);});
