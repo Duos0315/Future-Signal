@@ -38,6 +38,7 @@ jobs:
           node --check app.js
           node --check scripts/generate.mjs
           node --check scripts/lib/network.mjs
+          node --check scripts/lib/labs.mjs
       - name: Run automated regression tests
         run: npm test
       - name: Generate and validate today's signal
