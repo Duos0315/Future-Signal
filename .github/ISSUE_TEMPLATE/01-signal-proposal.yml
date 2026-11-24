@@ -1,0 +1,69 @@
+name: Propose a signal
+description: Submit a testable cross-disciplinary science or engineering question.
+title: "[Signal proposal]: "
+labels: ["community-proposal", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Proposals are reviewed by maintainers. Submission does not mean the idea is verified or scientifically established. Please do not include personal or sensitive information.
+  - type: input
+    id: domain
+    attributes:
+      label: Fields involved
+      description: "Example: ecology + distributed computing"
+      placeholder: "Field A + Field B"
+    validations:
+      required: true
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Testable hypothesis
+      description: State what you expect to happen and under what conditions.
+      placeholder: "If..., then..., because..."
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Core question
+      description: One clear question that could be investigated.
+    validations:
+      required: true
+  - type: textarea
+    id: method
+    attributes:
+      label: Proposed experiment or model
+      description: Describe steps, comparison groups, or a simulation that could test the idea.
+    validations:
+      required: true
+  - type: textarea
+    id: variables
+    attributes:
+      label: Variables and measurements
+      description: What will change, what will be measured, and what should stay constant?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: References or evidence
+      description: Link papers, datasets, documentation, or explain that this is an unverified idea.
+    validations:
+      required: false
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Limitations and safety
+      description: What assumptions, risks, or real-world constraints matter?
+    validations:
+      required: true
+  - type: checkboxes
+    id: integrity
+    attributes:
+      label: Submission checks
+      options:
+        - label: I have distinguished evidence from speculation.
+          required: true
+        - label: I have not presented a toy simulation as real-world proof.
+          required: true
