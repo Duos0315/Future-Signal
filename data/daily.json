@@ -2,6 +2,7 @@
   "date": "2026-11-24",
   "id": "FS-20261124",
   "domain": "ASTRONOMY + COMPUTING",
+  "family": "swarm",
   "title": "Find the tipping point in event detection",
   "hook": "Many systems change gradually until one threshold causes a disproportionate shift. This prompt asks where that threshold might be.",
   "experiment": "Vary observation overlap and noise in a synthetic event-detection task. Measure missed events and false alarms.",
