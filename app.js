@@ -20,4 +20,4 @@ $("run-sim").addEventListener("click",runSimulation);$("reset-sim").addEventList
 $("archive-search").addEventListener("input",()=>{visibleCount=10;renderArchive();});$("archive-filter").addEventListener("change",()=>{visibleCount=10;renderArchive();});$("load-more").addEventListener("click",()=>{visibleCount+=10;renderArchive();});
 $("archive-list").addEventListener("click",e=>{const item=e.target.closest("[data-signal-date]");if(!item)return;const date=item.dataset.signalDate;const record=archiveItems.find(x=>x.date===date);if(record){renderSignal(record);$("signal-provenance").textContent="ARCHIVED SIGNAL · "+date;$("today").scrollIntoView({behavior:"smooth"});}});
 $("saved-list").addEventListener("click",e=>{const b=e.target.closest("[data-remove]");if(!b)return;localStorage.setItem(STORAGE_KEY,JSON.stringify(saved().filter(x=>x.id!==b.dataset.remove)));renderSaved();});
-tickClock();setInterval(tickClock,1000);renderSaved();loadDaily();runSimulation();
+tickClock();setInterval(tickClock,1000);renderSaved();loadDaily();
