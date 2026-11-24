@@ -15,6 +15,20 @@
       ],
       "question": "How much can coordinated small instruments infer together?",
       "caveat": "Synthetic exercise; not an astronomical discovery.",
+      "lenses": [
+        {
+          "role": "Systems mapper",
+          "task": "Map the system boundary, key components, feedback loops and possible bottlenecks."
+        },
+        {
+          "role": "Skeptic",
+          "task": "State one observation that would weaken this hypothesis. Identify a competing explanation."
+        },
+        {
+          "role": "Experimentalist",
+          "task": "Choose a control condition, change one variable, and define a measurable outcome before running the test."
+        }
+      ],
       "generated_by": "FUTURE//SIGNAL deterministic rules engine",
       "model": "rules-v3",
       "status": "hypothesis-prompt"
