@@ -14,5 +14,8 @@ export function runExperiment({nodes,degree,failureRate,trials=100,seed="future-
  const random=createRng(hashSeed([nodes,degree,failureRate,seed].join("|")));
  const results=Array.from({length:trials},()=>runTrial({nodes,degree,failureRate},random));
  const values=results.map(x=>x.connectivity),mean=values.reduce((a,b)=>a+b,0)/values.length;
- return {trials,mean,min:Math.min(...values),max:Math.max(...values),results};
+ const meanSurvivors=results.reduce((sum,x)=>sum+x.survivors,0)/results.length;
+ const meanLargest=results.reduce((sum,x)=>sum+x.largestCluster,0)/results.length;
+ const meanOriginalShare=meanLargest/nodes*100;
+ return {trials,mean,min:Math.min(...values),max:Math.max(...values),meanSurvivors,meanLargest,meanOriginalShare,results};
 }
