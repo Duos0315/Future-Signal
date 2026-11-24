@@ -5,14 +5,14 @@
   "family": "swarm",
   "title": "Find the tipping point in event detection",
   "hook": "Many systems change gradually until one threshold causes a disproportionate shift. This prompt asks where that threshold might be.",
-  "experiment": "Vary observation overlap and noise in a synthetic event-detection task. Measure missed events and false alarms.",
+  "experiment": "Deploy simple agents across a synthetic observation grid. Vary agent count, local exploration bias and blocked regions; measure reachable area explored after a fixed number of steps.",
   "variables": [
-    "observation overlap",
-    "sensor noise",
-    "detection threshold"
+    "agent count",
+    "local exploration bias",
+    "obstacle density"
   ],
-  "question": "How much can coordinated small instruments infer together?",
-  "caveat": "Synthetic exercise; not an astronomical discovery.",
+  "question": "How does a distributed sensor swarm improve coverage when observations are incomplete?",
+  "caveat": "Synthetic search-coverage model; not an astronomical event detector or observation forecast.",
   "lenses": [
     {
       "role": "Systems mapper",
