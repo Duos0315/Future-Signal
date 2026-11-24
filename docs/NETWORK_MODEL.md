@@ -12,15 +12,15 @@ This browser experiment is a small, deterministic graph exercise. It is intended
 - Each node independently survives with probability 1 - p, where p is the selected failure rate.
 - The model does not simulate recovery, weighted links, capacity, geography, attack strategies, or correlated failures.
 
-## Metric
+## Metrics
 
 For each trial:
 1. Sample node survival independently.
 2. Find connected components among surviving nodes with breadth-first search.
-3. Let L be the size of the largest component and S the number of surviving nodes.
-4. Report 100 × L/S. If S is zero, report 0.
+3. Let L be the size of the largest component, S the number of surviving nodes, and N the original node count.
+4. Report both 100 × L/S (conditional connectivity; 0 when S is zero) and 100 × L/N (overall retained connectivity).
 
-The interface reports the mean, minimum and maximum of 100 trials. A value of 100% means all surviving nodes belong to one component. It does **not** mean all original nodes survived.
+The interface summarizes 100 deterministic trials with the mean, minimum and maximum conditional-connectivity score, mean survivor count, mean largest-cluster size, and mean original-network share. The two percentages answer different questions: how intact the surviving network is, and how much of the original network remains in its largest connected component.
 
 ## Reproducibility
 
@@ -30,4 +30,4 @@ The seed is derived from the selected network settings and signal identifier usi
 
 This metric measures fragmentation conditional on survivors. It does not measure total service delivered, capacity, latency, resilience to targeted attacks, recovery time, or the cost of adding links. A high score at a high failure rate can still mean that very few nodes remain, so always inspect the failure-rate setting and survivor count.
 
-A future model should report both (a) fraction of original nodes in the largest component and (b) fraction of surviving nodes in the largest component, and should compare random with targeted failures. Do not use this toy result to make engineering, safety, or investment decisions.
+The current model reports both the fraction of original nodes in the largest component and the fraction of surviving nodes in the largest component. A future model should compare random with targeted failures. Do not use this toy result to make engineering, safety, or investment decisions.
