@@ -9,7 +9,7 @@ FUTURE//SIGNAL is a static web laboratory designed to run on GitHub Free. Its pu
 - **Daily signal:** a date-seeded, deterministic rules engine combines science and engineering domains into a structured experiment prompt, with variables, caveats and three transparent research lenses (systems mapper, skeptic, experimentalist).
 - **Interactive experiment:** a shared, tested browser-side network model runs 100 reproducible trials, reports the largest connected component as a share of survivors, and plots trial outcomes.
 - **Scientific transparency:** every signal exposes its variables and caveats; the model mathematics and interpretation limits are documented in `docs/NETWORK_MODEL.md`.
-- **Signal archive:** searchable and filterable archive, with full experiment records retained in new archive entries.
+- **Signal archive and map:** searchable history plus a traceable signal-to-domain map. The map only displays explicit archive classifications; it does not invent scientific links.
 - **Personal collection:** save and remove signals in local browser storage.
 - **Shareable signals:** URL parameters identify a specific signal for sharing.
 - **Structured community proposals:** GitHub Issue Forms require a testable hypothesis, method, variables, evidence status, limitations and safety notes.
