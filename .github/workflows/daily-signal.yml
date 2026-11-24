@@ -1,9 +1,13 @@
-name: Generate daily signal
+name: Generate daily signal and verify core
 
 on:
   push:
     paths:
-      - "scripts/generate.mjs"
+      - "app.js"
+      - "index.html"
+      - "scripts/**"
+      - "tests/**"
+      - "package.json"
       - ".github/workflows/daily-signal.yml"
   schedule:
     - cron: "17 0 * * *"
@@ -17,9 +21,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  generate:
+  verify-and-generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -27,10 +31,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check scripts/generate.mjs
+          node --check scripts/lib/network.mjs
+      - name: Run automated regression tests
+        run: npm test
       - name: Generate and validate today's signal
         run: |
-          node scripts/generate.mjs
-          node --input-type=module -e "import fs from 'node:fs'; const s=JSON.parse(fs.readFileSync('data/daily.json','utf8')); if (!s.id || !s.title || !s.experiment || !s.question || !Array.isArray(s.variables) || s.variables.length < 2) process.exit(1); const a=JSON.parse(fs.readFileSync('data/archive/index.json','utf8')); if (!a.items.some(x => x.id === s.id && x.experiment)) process.exit(1); console.log('Signal and archive validation passed:', s.id)"
+          npm run generate
+          node --input-type=module -e "import fs from 'node:fs'; const s=JSON.parse(fs.readFileSync('data/daily.json','utf8')); if (!s.id || !s.title || !s.experiment || !s.question || !s.caveat || s.status !== 'hypothesis-prompt' || !Array.isArray(s.variables) || s.variables.length < 3) process.exit(1); const a=JSON.parse(fs.readFileSync('data/archive/index.json','utf8')); if (!a.items.some(x => x.id === s.id && x.experiment && x.caveat)) process.exit(1); console.log('Signal and archive validation passed:', s.id)"
       - name: Commit daily signal
         run: |
           git config user.name "github-actions[bot]"
