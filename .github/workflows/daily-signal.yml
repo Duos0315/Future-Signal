@@ -27,6 +27,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -52,4 +54,15 @@ jobs:
             exit 0
           fi
           git commit -m "chore: publish daily signal $(date -u +%F)"
-          git push
+          # A code commit may land while this scheduled job is running.
+          # Rebase the generated data commit onto the newest main before pushing.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying after refreshing main."
+          done
+          echo "Could not publish after three attempts."
+          exit 1
