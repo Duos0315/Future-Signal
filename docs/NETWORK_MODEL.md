@@ -34,7 +34,7 @@ The current model reports both the fraction of original nodes in the largest com
 
 ## Additional browser experiment families
 
-The current experiment selector exposes two additional synthetic models:
+The experiment selector exposes two additional synthetic models. The resource model can be used as a deliberately simplified analogy for energy, water or other bounded supplies; it does not model the domain-specific physics:
 
 - **Swarm exploration:** a 24 × 24 grid, randomly placed blocked cells, and simple agents that move to neighboring free cells. The score is the share of reachable cells visited during 90 movement steps. Agent behavior is intentionally minimal; it is not a validated ant-colony or multi-robot algorithm.
 - **Energy resilience:** a capped storage reservoir is updated over 120 time steps using stochastic generation and demand. The primary score is the percentage of steps where demand is fully served; average stored reserve and unmet energy are secondary diagnostics. Units are illustrative and are not calibrated to a real installation.
