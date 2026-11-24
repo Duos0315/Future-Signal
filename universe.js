@@ -1,6 +1,7 @@
 import {runLab} from "./scripts/lib/labs.mjs";
 const $=id=>document.getElementById(id),KEY="future-signal:universe:v1",today=new Date().toISOString().slice(0,10);
-const hash=v=>{let h=2166136261;for(const c of String(v)){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;};\nconst esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const hash=v=>{let h=2166136261;for(const c of String(v)){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;};
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const roles=[
 ["NOVA / SCOUT","HORIZON SCANNER","Finds an unknown frontier.","Identify what is observable, what remains unknown, and the boundary of the current signal."],
 ["ATLAS / SYSTEMS","SYSTEMS ARCHITECT","Maps dependencies and feedback.","Decompose the system into inputs, outputs, dependencies and one feedback loop."],
