@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "app.js"
+      - "universe.js"
       - "index.html"
       - "scripts/**"
       - "tests/**"
