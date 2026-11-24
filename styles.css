@@ -18,3 +18,13 @@
  .saved-item{grid-template-columns:78px minmax(0,1fr) auto}
  .saved-open{overflow-wrap:anywhere}
 }
+
+/* Multi-model experiment controls */
+.lab-model-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 18px;padding:14px 16px;border:1px solid var(--line);background:#0c141e}
+.lab-model-bar label{font:9px var(--mono);letter-spacing:.12em;color:var(--cyan)}
+.lab-model-bar select{background:#101a26;color:var(--text);border:1px solid var(--line);padding:10px 12px;font:11px var(--mono);min-width:190px}
+.lab-model-bar select:focus-visible,.lab-model-bar select:focus{outline:2px solid var(--cyan);outline-offset:2px}
+.lab-model-bar>span{margin-left:auto;color:#aab6c2;font:10px var(--mono)}
+.result-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 4px}
+.result-actions .button{padding:10px 12px;gap:8px}
+@media(max-width:760px){.lab-model-bar{align-items:stretch;flex-direction:column}.lab-model-bar>span{margin-left:0}.result-actions .button{flex:1}.metric-grid{grid-template-columns:1fr}}
