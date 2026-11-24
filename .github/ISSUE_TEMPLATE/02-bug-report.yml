@@ -1,0 +1,38 @@
+name: Report a bug
+description: Report a reproducible problem with the site or an experiment.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page or feature
+      placeholder: "Daily signal / experiment lab / archive"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. Open... 2. Change... 3. Click..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: "Firefox / Windows 11"
+    validations:
+      required: false
