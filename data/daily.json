@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-24",
+  "id": "FS-20261124",
+  "domain": "SYSTEMS + ECOLOGY",
+  "title": "What if a city could behave like a forest?",
+  "hook": "A network of buildings, batteries and sensors borrows one trick from living ecosystems: local decisions, shared resilience.",
+  "experiment": "Model a neighborhood as small energy nodes. Give each node a local reserve and allow surplus energy to move only to nearby neighbors. Then introduce random outages and compare the network with a single central source.",
+  "variables": ["local storage", "neighbor radius", "outage probability"],
+  "question": "Does a decentralized network recover faster when its most connected node fails?",
+  "caveat": "Conceptual experiment. Real grids require detailed electrical, economic and safety modelling."
+}
