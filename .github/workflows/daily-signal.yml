@@ -1,0 +1,38 @@
+name: Generate daily signal
+
+on:
+  schedule:
+    - cron: "17 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-signal
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Generate today's signal
+        run: node scripts/generate.mjs
+      - name: Commit daily signal
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/daily.json data/archive/index.json
+          if git diff --cached --quiet; then
+            echo "No signal changes to publish."
+            exit 0
+          fi
+          git commit -m "chore: publish daily signal $(date -u +%F)"
+          git push
