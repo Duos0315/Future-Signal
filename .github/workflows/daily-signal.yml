@@ -41,7 +41,7 @@ jobs:
       - name: Generate and validate today's signal
         run: |
           npm run generate
-          node --input-type=module -e "import fs from 'node:fs'; const s=JSON.parse(fs.readFileSync('data/daily.json','utf8')); if (!s.id || !s.title || !s.experiment || !s.question || !s.caveat || s.status !== 'hypothesis-prompt' || !Array.isArray(s.variables) || s.variables.length < 3) process.exit(1); const a=JSON.parse(fs.readFileSync('data/archive/index.json','utf8')); if (!a.items.some(x => x.id === s.id && x.experiment && x.caveat)) process.exit(1); console.log('Signal and archive validation passed:', s.id)"
+          node --input-type=module -e "import fs from 'node:fs'; const s=JSON.parse(fs.readFileSync('data/daily.json','utf8')); if (!s.id || !s.title || !s.experiment || !s.question || !s.caveat || !Array.isArray(s.lenses) || s.lenses.length !== 3 || s.status !== 'hypothesis-prompt' || !Array.isArray(s.variables) || s.variables.length < 3) process.exit(1); const a=JSON.parse(fs.readFileSync('data/archive/index.json','utf8')); if (!a.items.some(x => x.id === s.id && x.experiment && x.caveat)) process.exit(1); console.log('Signal and archive validation passed:', s.id)"
       - name: Commit daily signal
         run: |
           git config user.name "github-actions[bot]"
