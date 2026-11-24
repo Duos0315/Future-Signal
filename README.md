@@ -7,7 +7,7 @@ FUTURE//SIGNAL is a static web laboratory designed to run on GitHub Free. Its pu
 ## What it does
 
 - **Daily signal:** a date-seeded, deterministic rules engine combines science and engineering domains into a structured experiment prompt, with variables, caveats and three transparent research lenses (systems mapper, skeptic, experimentalist).
-- **Interactive experiment:** a shared, tested browser-side network model runs 100 reproducible trials, reports the largest connected component as a share of survivors, and plots trial outcomes.
+- **Interactive experiment:** a shared, tested browser-side network model runs 100 reproducible trials, reports the largest connected component as a share of survivors and as a share of the original population, tracks mean survivors and cluster size, and plots trial outcomes.
 - **Scientific transparency:** every signal exposes its variables and caveats; the model mathematics and interpretation limits are documented in `docs/NETWORK_MODEL.md`.
 - **Signal archive and map:** searchable history plus a traceable signal-to-domain map. The map only displays explicit archive classifications; it does not invent scientific links.
 - **Personal collection:** save and remove signals in local browser storage.
@@ -27,7 +27,7 @@ FUTURE//SIGNAL is a static web laboratory designed to run on GitHub Free. Its pu
 
 The daily generator is deterministic and template-based. It does **not** independently discover scientific facts or perform literature review. A signal is a hypothesis starter, not a scientific finding.
 
-The network experiment is an explicitly simplified graph model. It measures the fraction of surviving nodes in the largest connected component across 100 deterministic trials. It is not a validated model of a power grid, city, biological system, or production network. Real applications require measured parameters, domain expertise, independent validation and safety review.
+The network experiment is an explicitly simplified graph model. It reports two distinct quantities across 100 deterministic trials: the largest component as a fraction of surviving nodes (conditional connectivity), and as a fraction of the original node population (overall retained connectivity). It also reports mean survivors and mean largest-cluster size. It is not a validated model of a power grid, city, biological system, or production network. Real applications require measured parameters, domain expertise, independent validation and safety review.
 
 ## Daily publishing
 
