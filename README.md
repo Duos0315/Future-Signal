@@ -11,7 +11,8 @@ FUTURE//SIGNAL is a static web laboratory designed to run on GitHub Free. Its pu
 - **Signal archive:** searchable and filterable archive, with full experiment records retained in new archive entries.
 - **Personal collection:** save and remove signals in local browser storage.
 - **Shareable signals:** URL parameters identify a specific signal for sharing.
-- **Community input:** visitors can propose ideas through GitHub Issues.
+- **Structured community proposals:** GitHub Issue Forms require a testable hypothesis, method, variables, evidence status, limitations and safety notes.
+- **Bug reporting:** a separate reproducible bug form captures steps, expected behavior, actual behavior and environment.
 
 ## Architecture and constraints
 
@@ -65,4 +66,4 @@ node scripts/generate.mjs
 
 ## Contribute
 
-Open a GitHub Issue with the question, system, variables, assumptions, references and limitations. For any real-world experiment, include appropriate safety review.
+Use the repository's **Propose a signal** issue form. Include the question, hypothesis, method, variables, references and limitations. Use **Report a bug** for reproducible product issues. For any real-world experiment, include appropriate safety review.
