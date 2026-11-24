@@ -28,7 +28,7 @@ await mkdir("data/archive",{recursive:true});
 await writeFile("data/daily.json",JSON.stringify(signal,null,2)+"\n");
 let archive={updated:today,items:[]};try{archive=JSON.parse(await readFile("data/archive/index.json","utf8"));}catch{}
 const items=Array.isArray(archive.items)?archive.items:[];
-archive.items=[{date:today,id:signal.id,domain:signal.domain,title:signal.title},...items.filter(x=>x.date!==today)].slice(0,365);
+archive.items=[{...signal},...items.filter(x=>x.date!==today)].slice(0,365);
 archive.updated=today;
 await writeFile("data/archive/index.json",JSON.stringify(archive,null,2)+"\n");
 console.log("Generated "+signal.id+": "+signal.title+" | archive: "+archive.items.length);
