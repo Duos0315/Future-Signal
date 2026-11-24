@@ -72,3 +72,18 @@ node scripts/generate.mjs
 
 Use the repository's **Propose a signal** issue form. Include the question, hypothesis, method, variables, references and limitations. Use **Report a bug** for reproducible product issues. For any real-world experiment, include appropriate safety review.
 \n\n## Experiment engine v2\n\nThe browser now includes three deterministic, locally executed experiment families: network resilience (graph connectivity under random node loss), swarm exploration (coverage in an obstacle grid), and energy resilience (storage/generation/demand balance over 120 steps). Daily signals are assigned to a compatible family by transparent domain-name rules; this mapping is a routing heuristic, not scientific evidence. All models expose assumptions and caveats, run 100 seeded trials by default, and support CSV export and shareable setup URLs.\n\nModel outputs are synthetic teaching models, not validated predictions or empirical discoveries. Use controlled comparisons, change one parameter at a time, and consult domain experts before applying any result to real systems.\n
+ 
+## Living universe experience
+
+The Universe Control Room adds a playable progression loop:
+
+- Four transparent specialist roles (Scout, Systems Architect, Skeptic and Builder) analyze the current signal using deterministic rules. They are not LLM agents.
+- Mission directives reward local evolution XP for scanning, building and simulation.
+- The Creation Bay stores named habitat, swarm, city, energy and ecosystem blueprints in browser storage.
+- Blueprints can be stress-tested using the existing deterministic synthetic model families.
+- A discovery log records local actions and can be exported as JSON.
+- Community proposals route through GitHub Issue Forms for human review.
+
+Progress is local to the browser/device. GitHub Pages has no user database, shared multiplayer state or server-side identity. XP is a local game mechanic, not scientific merit. Simulation outputs are synthetic teaching models, not validated predictions.
+
+See docs/UNIVERSE_ARCHITECTURE.md for architecture, limitations and the next evolution path.
