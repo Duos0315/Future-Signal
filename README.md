@@ -7,7 +7,8 @@ FUTURE//SIGNAL is a static web laboratory designed to run on GitHub Free. Its pu
 ## What it does
 
 - **Daily signal:** a date-seeded, deterministic rules engine combines science and engineering domains into a structured experiment prompt.
-- **Interactive experiment:** a browser-side network resilience model runs 100 reproducible trials, measures the largest surviving connected component, and plots trial outcomes.
+- **Interactive experiment:** a shared, tested browser-side network model runs 100 reproducible trials, reports the largest connected component as a share of survivors, and plots trial outcomes.
+- **Scientific transparency:** every signal exposes its variables and caveats; the model mathematics and interpretation limits are documented in `docs/NETWORK_MODEL.md`.
 - **Signal archive:** searchable and filterable archive, with full experiment records retained in new archive entries.
 - **Personal collection:** save and remove signals in local browser storage.
 - **Shareable signals:** URL parameters identify a specific signal for sharing.
@@ -61,7 +62,10 @@ node scripts/generate.mjs
 - `app.js` — data loading, archive, saved signals, sharing and experiment engine
 - `data/daily.json` — latest published signal
 - `data/archive/index.json` — rolling archive (up to 365 entries)
-- `scripts/generate.mjs` — deterministic signal generator
+- `scripts/generate.mjs` — deterministic, schema-validated signal generator
+- `scripts/lib/network.mjs` — shared network experiment engine
+- `tests/core.test.mjs` — zero-dependency regression tests
+- `docs/NETWORK_MODEL.md` — model definition, metric and limitations
 - `.github/workflows/daily-signal.yml` — scheduled publishing
 
 ## Contribute
