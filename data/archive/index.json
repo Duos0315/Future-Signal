@@ -31,7 +31,7 @@
         }
       ],
       "generated_by": "FUTURE//SIGNAL deterministic rules engine",
-      "model": "rules-v3",
+      "model": "rules-v4",
       "status": "hypothesis-prompt"
     }
   ]
