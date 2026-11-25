@@ -11,3 +11,5 @@ test("paired scenario comparison is reproducible and accounts for every trial",(
 for(const family of ["network","swarm","energy"]){
  test(family+" comparison pairs identical configurations trial by trial",()=>{const settings={scale:60,noise:5,pressure:25},r=compareLabs({family,baseline:settings,intervention:settings,trials:25,seed:"paired-identical"});assert.equal(r.meanDelta,0);assert.equal(r.improvedTrials,0);assert.equal(r.tiedTrials,25);assert.equal(r.declinedTrials,0);assert.ok(r.deltas.every(x=>x===0));});
 }
+
+test("network headline score measures retained share, not conditional connectivity",()=>{const r=runLab({family:"network",scale:60,noise:4,pressure:15,trials:100,seed:"reader-metrics"});assert.ok(r.results.every(x=>x.score===x.largestCluster/60*100));assert.ok(r.results.every(x=>x.conditionalConnectivity===(x.survivors?x.largestCluster/x.survivors*100:0)));assert.ok(r.results.every(x=>x.survivalRate===x.survivors/60*100));assert.ok(r.mean>=0&&r.mean<=100);assert.ok(r.meanSecondary>=0&&r.meanSecondary<=100);assert.ok(r.meanTertiary>=0&&r.meanTertiary<=100);});
