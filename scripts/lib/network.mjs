@@ -11,8 +11,7 @@ export function runTrial({nodes,degree,failureRate},random){
 }
 export function runExperiment({nodes,degree,failureRate,trials=100,seed="future-signal"}){
  if(!Number.isInteger(trials)||trials<1||trials>10000)throw new RangeError("trials must be an integer from 1 to 10000");
- const random=createRng(hashSeed(String(seed)));
- const results=Array.from({length:trials},()=>runTrial({nodes,degree,failureRate},random));
+ const results=Array.from({length:trials},(_,i)=>runTrial({nodes,degree,failureRate},createRng(hashSeed(String(seed)+"|trial:"+i))));
  const values=results.map(x=>x.connectivity),mean=values.reduce((a,b)=>a+b,0)/values.length;
  const meanSurvivors=results.reduce((sum,x)=>sum+x.survivors,0)/results.length;
  const meanLargest=results.reduce((sum,x)=>sum+x.largestCluster,0)/results.length;
