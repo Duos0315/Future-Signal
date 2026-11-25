@@ -32,11 +32,9 @@ export function validateSignal(s){return Boolean(s&&["network","swarm","energy"]
 export async function generate({root=ROOT,date=process.env.SIGNAL_DATE||new Date().toISOString().slice(0,10)}={}){
  const signal=buildSignal(date);if(!validateSignal(signal))throw new Error("Generated signal failed schema validation");
  const dailyPath=resolve(root,"data/daily.json"),archivePath=resolve(root,"data/archive/index.json");
- await mkdir(dirname(archivePath),{recursive:true});await writeFile(dailyPath,JSON.stringify(signal,null,2)+"
-");
+ await mkdir(dirname(archivePath),{recursive:true});await writeFile(dailyPath,JSON.stringify(signal,null,2)+"\n");
  let archive={updated:date,items:[]};try{archive=JSON.parse(await readFile(archivePath,"utf8"));}catch(e){if(e.code!=="ENOENT")throw e;}
  const previous=Array.isArray(archive.items)?archive.items:[];archive.items=[signal,...previous.filter(x=>x.id!==signal.id)].slice(0,365);archive.updated=date;
- await writeFile(archivePath,JSON.stringify(archive,null,2)+"
-");return {signal,archive};
+ await writeFile(archivePath,JSON.stringify(archive,null,2)+"\n");return {signal,archive};
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){const result=await generate();console.log("Generated "+result.signal.id+": "+result.signal.title+" | archive: "+result.archive.items.length);}
