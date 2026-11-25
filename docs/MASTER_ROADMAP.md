@@ -50,6 +50,8 @@ FUTURE//SIGNAL is a decision-support and learning platform, not an oracle. A gen
 
 ### Phase 2 — Real-world data and signal monitoring
 
+**Implemented foundation:** a browser-side World Bank Indicators API v2 adapter and public data explorer for a curated set of World Development Indicators. It preserves source URL, retrieval timestamp, requested period, observation status and missing-value counts, with JSON/CSV export. This is a first provider integration, not a complete monitoring system.
+
 **Scope**
 - Public data adapters with source-specific contracts.
 - Unit, timezone, geography and missing-data normalization.
