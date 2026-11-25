@@ -9,7 +9,9 @@ on:
       - "scripts/**"
       - "tests/**"
       - "package.json"
-      - ".github/workflows/**"\n      - "CONTRIBUTING.md"\n      - ".github/PULL_REQUEST_TEMPLATE.md"
+      - ".github/workflows/**"
+      - "CONTRIBUTING.md"
+      - ".github/PULL_REQUEST_TEMPLATE.md"
   schedule:
     - cron: "17 0 * * *"
   workflow_dispatch:
