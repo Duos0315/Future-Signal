@@ -101,3 +101,10 @@ Daily signals carry a versioned world-state object with biome, anomaly and a tra
  
 ## Community review and contribution
 Signal proposals enter through GitHub Issue Forms and are automatically labelled for review. A maintainer must check testability, evidence quality, limitations and safety before any accepted proposal is added to the deterministic generator. Issue submissions are not automatically published as daily signals. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Product and research standards
+
+- [Master product and engineering roadmap](docs/MASTER_ROADMAP.md) — phased delivery plan with measurable exit gates.
+- [Research integrity protocol](docs/RESEARCH_PROTOCOL.md) — evidence classes, experiment metadata, comparison rules, data provenance and validation ladder.
+
+A roadmap item is not complete because it is documented; it is complete only when its acceptance gate is implemented and verified.
