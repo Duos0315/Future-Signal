@@ -32,3 +32,21 @@ export function compareLabs({family="network",baseline={},intervention={},trials
  const a=runLab({family,...baseline,trials,seed}),b=runLab({family,...intervention,trials,seed}),deltas=b.results.map((x,i)=>x.score-a.results[i].score),wins=deltas.filter(x=>x>0).length,ties=deltas.filter(x=>x===0).length,meanDelta=deltas.reduce((s,v)=>s+v,0)/deltas.length;
  return {family,modelVersion:MODEL_VERSION,trials,baselineMean:a.mean,interventionMean:b.mean,meanDelta,medianDelta:median(deltas),minDelta:Math.min(...deltas),maxDelta:Math.max(...deltas),improvedTrials:wins,tiedTrials:ties,declinedTrials:trials-wins-ties,improvedRate:wins/trials*100,baseline:a,intervention:b,deltas};
 }
+
+export function runSensitivity({family="network",parameters={},trials=100,seed="future-signal",multipliers=[0.8,0.9,1,1.1,1.2]}={}){
+ if(!Array.isArray(multipliers)||multipliers.length<3||multipliers.some(x=>!Number.isFinite(x)||x<=0)||!multipliers.includes(1))throw new RangeError("multipliers must be positive finite values and include 1");
+ const base={scale:parameters.scale??60,noise:parameters.noise??4,pressure:parameters.pressure??20};
+ const baseline=runLab({family,...base,trials,seed});
+ const bounds={scale:[12,120],noise:[1,10],pressure:[0,80]};
+ const axes=["scale","noise","pressure"].map(parameter=>{
+  const points=multipliers.map(multiplier=>{
+   let value=clamp(base[parameter]*multiplier,...bounds[parameter]);
+   if(parameter==="scale")value=family==="network"?Math.round(value/4)*4:Math.round(value);
+   if(parameter==="noise"&&family==="network")value=Math.round(value);
+   const scenario={...base,[parameter]:value},result=runLab({family,...scenario,trials,seed});
+   return{multiplier,requestedValue:value,effectiveParameters:result.parameters,mean:result.mean,delta:result.mean-baseline.mean,min:result.min,max:result.max};
+  });
+  return{parameter,points};
+ });
+ return{family,modelVersion:MODEL_VERSION,trials,baseline:{requestedParameters:base,effectiveParameters:baseline.parameters,mean:baseline.mean,min:baseline.min,max:baseline.max},axes,method:"one-factor-at-a-time; each point changes one requested control while holding the other two at baseline; identical deterministic seed per trial index",limitations:"Sensitivity of this synthetic model only. Shared seeds aid comparison but do not establish statistical significance, causality in real systems, or real-world predictive validity."};
+}
