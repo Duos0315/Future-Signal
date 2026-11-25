@@ -5,6 +5,7 @@ on:
     paths:
       - "app.js"
       - "universe.js"
+      - "data-explorer.js"
       - "index.html"
       - "scripts/**"
       - "tests/**"
