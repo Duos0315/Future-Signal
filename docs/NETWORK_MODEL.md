@@ -6,9 +6,9 @@ This browser experiment is a small, deterministic graph exercise. It is intended
 
 ## Graph construction
 
-- There are N nodes arranged on a ring.
+- There are N nodes arranged on a ring (supported range: 3–500).
 - Each node connects to its k nearest neighbors clockwise and k nearest neighbors counter-clockwise.
-- The degree control is therefore a *link radius*, not total degree. The nominal node degree is 2k for the supported even-size configurations.
+- The degree control is therefore a *link radius*, not total degree. The nominal node degree is 2k for the supported configurations.
 - Each node independently survives with probability 1 - p, where p is the selected failure rate.
 - The model does not simulate recovery, weighted links, capacity, geography, attack strategies, or correlated failures.
 
@@ -41,10 +41,16 @@ The experiment selector exposes two additional synthetic models. The resource mo
 
 All three families use seeded pseudo-randomness and 100 trials by default. The selected signal identifier and model inputs determine the seed. Results are reproducible for the same code version and settings, but they are not empirical measurements. Domain-to-model assignment is a transparent keyword heuristic. A daily prompt may still describe a research question broader than the toy model can answer; the interface must disclose that mismatch rather than implying the simulation validates the prompt.
 
- 
 ## Paired scenario comparisons
-The comparison engine runs baseline and intervention scenarios for the same number of trials with the the same independently seeded random stream for each trial index. It reports per-trial score deltas, mean and median delta, and counts of improved, tied and declined trials. Models may consume random values differently within a trial, so paired seeds are a reproducibility aid rather than a strict statistical design. It does not estimate confidence intervals or establish causal effects.
+
+The comparison engine runs baseline and intervention scenarios for the same number of trials with the same independently seeded random stream for each trial index. It reports per-trial score deltas, mean and median delta, and counts of improved, tied and declined trials. Models may consume random values differently within a trial, so paired seeds are a reproducibility aid rather than a strict statistical design. It does not estimate confidence intervals or establish causal effects.
 
 ## Reader guide
 
 The experiment interface includes two explanation levels. The beginner guide uses a familiar analogy and a worked example; the expert notes define variables, formulas and assumptions. Both views use the same model output. The network headline score is retained connectivity (largest component divided by the original node count), while survival rate and conditional connectivity remain separate diagnostics.
+
+## One-factor sensitivity analysis
+
+The browser exposes a five-point one-factor-at-a-time sweep for each of the three model controls (80%, 90%, 100%, 110% and 120% of the selected starting value, bounded by model limits). It changes one control per sweep and holds the other requested controls fixed. Each point uses the same deterministic seed and trial count as the baseline. Effective normalized parameters are included in each point. Boundary clamping can cause repeated effective values; read the effective parameters rather than assuming every multiplier produced a distinct model configuration.
+
+This is a descriptive sensitivity check for a synthetic model. It is not a confidence interval, statistical significance test, causal estimate or real-world sensitivity assessment.

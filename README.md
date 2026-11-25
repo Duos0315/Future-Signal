@@ -65,13 +65,15 @@ node scripts/generate.mjs
 - `scripts/generate.mjs` — deterministic, schema-validated signal generator
 - `scripts/lib/network.mjs` — shared network experiment engine
 - `tests/core.test.mjs` — zero-dependency regression tests
-- `docs/NETWORK_MODEL.md` — model definition, metric and limitations\n- `docs/UNIVERSE_ARCHITECTURE.md` — universe schema and technical boundaries\n- `docs/PRODUCT_VISION.md` — core product concept and evolution principles\n- `CONTRIBUTING.md` — proposal review and contribution process
+- `docs/NETWORK_MODEL.md` — model definition, metric and limitations\n- `docs/UNIVERSE_ARCHITECTURE.md` — universe schema and technical boundaries\n- `docs/PRODUCT_VISION.md` — core product concept and evolution principles
+- `docs/MASTER_ROADMAP.md` — phased product and engineering plan with acceptance gates
+- `docs/RESEARCH_PROTOCOL.md` — evidence classes, experiment metadata and validation standards\n- `CONTRIBUTING.md` — proposal review and contribution process
 - `.github/workflows/daily-signal.yml` — scheduled publishing
 
 ## Contribute
 
 Use the repository's **Propose a signal** issue form. Include the question, hypothesis, method, variables, references and limitations. Use **Report a bug** for reproducible product issues. For any real-world experiment, include appropriate safety review.
-\n\n## Experiment engine v2\n\nThe browser now includes three deterministic, locally executed experiment families: network resilience (graph connectivity under random node loss), swarm exploration (coverage in an obstacle grid), and energy resilience (storage/generation/demand balance over 120 steps). Daily signals are assigned to a compatible family by transparent domain-name rules; this mapping is a routing heuristic, not scientific evidence. All models expose assumptions and caveats, run 100 seeded trials by default, and support CSV export and shareable setup URLs.\n\nModel outputs are synthetic teaching models, not validated predictions or empirical discoveries. Use controlled comparisons, change one parameter at a time, and consult domain experts before applying any result to real systems.\n
+\n\n## Experiment engine v2\n\nThe browser now includes three deterministic, locally executed experiment families: network resilience (graph connectivity under random node loss), swarm exploration (coverage in an obstacle grid), and energy resilience (storage/generation/demand balance over 120 steps). Daily signals are assigned to a compatible family by transparent domain-name rules; this mapping is a routing heuristic, not scientific evidence. All models expose assumptions and caveats, run 100 seeded trials by default, and support CSV export, shareable setup URLs and one-factor sensitivity analysis. Runs and sensitivity sweeps can also be exported as JSON records with model version, seed, requested/effective parameters, signal context and trial-level outputs.\n\nModel outputs are synthetic teaching models, not validated predictions or empirical discoveries. Use controlled comparisons, change one parameter at a time, and consult domain experts before applying any result to real systems.\n
  
 ## Living universe experience
 
@@ -101,3 +103,10 @@ Daily signals carry a versioned world-state object with biome, anomaly and a tra
  
 ## Community review and contribution
 Signal proposals enter through GitHub Issue Forms and are automatically labelled for review. A maintainer must check testability, evidence quality, limitations and safety before any accepted proposal is added to the deterministic generator. Issue submissions are not automatically published as daily signals. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Product and research standards
+
+- [Master product and engineering roadmap](docs/MASTER_ROADMAP.md) — phased delivery plan with measurable exit gates.
+- [Research integrity protocol](docs/RESEARCH_PROTOCOL.md) — evidence classes, experiment metadata, comparison rules, data provenance and validation ladder.
+
+A roadmap item is not complete because it is documented; it is complete only when its acceptance gate is implemented and verified.
