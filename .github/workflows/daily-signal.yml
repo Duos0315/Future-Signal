@@ -40,9 +40,11 @@ jobs:
         run: |
           node --check app.js
           node --check universe.js
+          node --check data-explorer.js
           node --check scripts/generate.mjs
           node --check scripts/lib/network.mjs
           node --check scripts/lib/labs.mjs
+          node --check scripts/lib/worldbank.mjs
       - name: Run automated regression tests
         run: npm test
       - name: Generate and validate today's signal
