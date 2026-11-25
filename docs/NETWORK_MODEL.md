@@ -40,3 +40,7 @@ The experiment selector exposes two additional synthetic models. The resource mo
 - **Energy resilience:** a capped storage reservoir is updated over 120 time steps using stochastic generation and demand. The primary score is the percentage of steps where demand is fully served; average stored reserve and unmet energy are secondary diagnostics. Units are illustrative and are not calibrated to a real installation.
 
 All three families use seeded pseudo-randomness and 100 trials by default. The selected signal identifier and model inputs determine the seed. Results are reproducible for the same code version and settings, but they are not empirical measurements. Domain-to-model assignment is a transparent keyword heuristic. A daily prompt may still describe a research question broader than the toy model can answer; the interface must disclose that mismatch rather than implying the simulation validates the prompt.
+
+ 
+## Paired scenario comparisons
+The comparison engine runs baseline and intervention scenarios for the same number of trials with the same initial deterministic random stream. It reports per-trial score deltas, mean and median delta, and counts of improved, tied and declined trials. Different settings can consume random values differently, so pairing is a repeatability aid rather than a strict statistical design. It does not estimate confidence intervals or establish causal effects.

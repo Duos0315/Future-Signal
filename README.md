@@ -87,3 +87,13 @@ The Universe Control Room adds a playable progression loop:
 Progress is local to the browser/device. GitHub Pages has no user database, shared multiplayer state or server-side identity. XP is a local game mechanic, not scientific merit. Simulation outputs are synthetic teaching models, not validated predictions.
 
 See docs/UNIVERSE_ARCHITECTURE.md for architecture, limitations and the next evolution path.
+
+ 
+## Comparative experimentation and evidence ledger
+The lab now compares a baseline with visitor-selected settings using paired deterministic random streams. It reports mean and median paired score changes and counts improved, tied and declined trials. Pairing improves repeatability but is not statistical proof or model validation.
+
+Blueprints contain typed conceptual modules. Adding modules changes the bounded parameters used by the relevant synthetic stress-test model. This is an educational design proxy, not CAD, a physical bill of materials or an engineering specification.
+
+The evidence ledger attaches HTTPS references to a signal and labels each source type and relationship (supports, challenges or context). Only URL format is checked; source contents and peer-review status are not automatically verified. Entries remain visibly user-submitted and unverified until human review.
+
+Daily signals carry a versioned world-state object with biome, anomaly and a transparent pressure modifier. The modifier changes the initial lab setup and visitors can override it.

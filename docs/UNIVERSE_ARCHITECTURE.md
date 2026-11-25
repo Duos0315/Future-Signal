@@ -33,3 +33,16 @@ GitHub Pages serves static HTML, CSS and JavaScript. GitHub Actions runs schedul
 4. Evidence workflow with references, source quality, uncertainty and review status.
 5. Human-reviewed contribution pipeline into approved JSON records.
 6. Optional shared identity only if a backend or account-linked workflow becomes acceptable.
+
+ 
+## Versioned world state (schema v1)
+Every daily signal carries a `world` object with `version`, `cycle`, `biome`, `anomaly` and a `modifier`. The modifier is scoped to the generic pressure control and changes the initial lab setting; visitors can override it. World state is deterministic from the date and schema-validated with the signal.
+
+## Controlled comparisons
+The lab compares baseline and intervention scenarios with paired deterministic random streams. It reports mean and median paired deltas and counts improved, tied and declined trials. This is a reproducible comparison utility, not inferential statistics, a confidence interval or proof of causality.
+
+## Blueprint module model
+Each blueprint contains typed conceptual modules. Module inventory maps to bounded parameters for the relevant toy model. The mapping does not calculate physical dimensions, engineering loads, costs or safety.
+
+## Evidence ledger
+Visitors can attach HTTPS references to the current signal and label each as supporting, challenging or contextual, plus a source type. The browser validates URL format only. It does not fetch, authenticate, assess or verify source content. Entries are marked user-submitted and unverified; human review is required.
