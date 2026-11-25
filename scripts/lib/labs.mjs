@@ -1,4 +1,4 @@
-import { createRng, runExperiment } from "./network.mjs";
+import { createRng, hashSeed, runExperiment } from "./network.mjs";
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const mean=a=>a.reduce((s,v)=>s+v,0)/Math.max(1,a.length);
 function swarmTrial(agents,radius,obstacles,rng){
@@ -17,11 +17,11 @@ function energyTrial(capacity,recovery,volatility,rng){
 export function runLab({family="network",scale=60,pressure=20,noise=4,trials=100,seed="future-signal"}={}){
  if(!["network","swarm","energy"].includes(family))throw new RangeError("Unknown experiment family");
  if(!Number.isInteger(trials)||trials<1||trials>10000)throw new RangeError("trials must be an integer from 1 to 10000");
- const rng=createRng((()=>{let h=2166136261;for(const c of [seed,family].join("|")){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;})());
+ const trialRng=index=>createRng(hashSeed([seed,family,index].join("|")));
  let results,scoreLabel,secondaryLabel,tertiaryLabel,secondary,tertiary;
  if(family==="network"){const nodes=Math.round(clamp(scale,12,120)/4)*4,degree=Math.round(clamp(noise,1,10)),r=runExperiment({nodes,degree,failureRate:clamp(pressure,0,80),trials,seed:[seed,family].join("|")});results=r.results.map(x=>({score:x.connectivity}));scoreLabel="Largest cluster / survivors";secondaryLabel="Mean surviving nodes";tertiaryLabel="Mean largest cluster";secondary=r.meanSurvivors;tertiary=r.meanLargest;}
- else if(family==="swarm"){const agents=Math.round(clamp(scale,12,120)),radius=clamp(noise,1,10),obstacles=clamp(pressure,0,80);results=Array.from({length:trials},()=>({score:swarmTrial(agents,radius,obstacles,rng)}));scoreLabel="Explored reachable area";secondaryLabel="Agents per trial";tertiaryLabel="Obstacle density";secondary=agents;tertiary=obstacles;}
- else{const capacity=clamp(scale,12,120),recovery=clamp(noise*10,10,100),volatility=clamp(pressure,0,80),details=Array.from({length:trials},()=>energyTrial(capacity,recovery,volatility,rng));results=details.map(x=>({score:x.score}));scoreLabel="Demand fully served";secondaryLabel="Mean stored reserve";tertiaryLabel="Unmet demand (units)";secondary=mean(details.map(x=>x.reserve));tertiary=mean(details.map(x=>x.unmet));}
+ else if(family==="swarm"){const agents=Math.round(clamp(scale,12,120)),radius=clamp(noise,1,10),obstacles=clamp(pressure,0,80);results=Array.from({length:trials},(_,i)=>({score:swarmTrial(agents,radius,obstacles,trialRng(i))}));scoreLabel="Explored reachable area";secondaryLabel="Agents per trial";tertiaryLabel="Obstacle density";secondary=agents;tertiary=obstacles;}
+ else{const capacity=clamp(scale,12,120),recovery=clamp(noise*10,10,100),volatility=clamp(pressure,0,80),details=Array.from({length:trials},(_,i)=>energyTrial(capacity,recovery,volatility,trialRng(i)));results=details.map(x=>({score:x.score}));scoreLabel="Demand fully served";secondaryLabel="Mean stored reserve";tertiaryLabel="Unmet demand (units)";secondary=mean(details.map(x=>x.reserve));tertiary=mean(details.map(x=>x.unmet));}
  const scores=results.map(x=>x.score);return{family,trials,scoreLabel,secondaryLabel,tertiaryLabel,mean:mean(scores),min:Math.min(...scores),max:Math.max(...scores),meanSecondary:secondary,meanTertiary:tertiary,results};
 }
 
