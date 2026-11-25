@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {runLab,compareLabs,MODEL_VERSION} from "../scripts/lib/labs.mjs";
+import {runLab,compareLabs,runSensitivity,MODEL_VERSION} from "../scripts/lib/labs.mjs";
 for(const family of ["network","swarm","energy"]){
  test(family+" lab is reproducible and bounded",()=>{const args={family,scale:60,pressure:25,noise:5,trials:30,seed:"regression"};const a=runLab(args);assert.deepEqual(a,runLab(args));assert.equal(a.results.length,30);assert.ok(a.mean>=0&&a.mean<=100);assert.ok(Number.isFinite(a.meanSecondary));assert.ok(Number.isFinite(a.meanTertiary));assert.ok(a.parameters&&Object.values(a.parameters).every(Number.isFinite));assert.equal(a.modelVersion,MODEL_VERSION);});
 }
@@ -11,3 +11,6 @@ for(const family of ["network","swarm","energy"]){
  test(family+" comparison pairs identical configurations trial by trial",()=>{const settings={scale:60,noise:5,pressure:25},r=compareLabs({family,baseline:settings,intervention:settings,trials:25,seed:"paired-identical"});assert.equal(r.meanDelta,0);assert.equal(r.improvedTrials,0);assert.equal(r.tiedTrials,25);assert.equal(r.declinedTrials,0);assert.ok(r.deltas.every(x=>x===0));});
 }
 test("network headline score measures retained share, not conditional connectivity",()=>{const r=runLab({family:"network",scale:60,noise:4,pressure:15,trials:100,seed:"reader-metrics"});assert.ok(r.results.every(x=>x.score===x.largestCluster/60*100));assert.ok(r.results.every(x=>x.conditionalConnectivity===(x.survivors?x.largestCluster/x.survivors*100:0)));assert.ok(r.results.every(x=>x.survivalRate===x.survivors/60*100));assert.ok(r.mean>=0&&r.mean<=100);assert.ok(r.meanSecondary>=0&&r.meanSecondary<=100);assert.ok(r.meanTertiary>=0&&r.meanTertiary<=100);});
+
+test("one-factor sensitivity analysis is reproducible and includes the baseline point",()=>{const args={family:"network",parameters:{scale:60,noise:4,pressure:20},trials:20,seed:"sensitivity-test"};const a=runSensitivity(args),b=runSensitivity(args);assert.deepEqual(a,b);assert.equal(a.modelVersion,MODEL_VERSION);assert.equal(a.axes.length,3);for(const axis of a.axes){assert.equal(axis.points.length,5);const center=axis.points.find(x=>x.multiplier===1);assert.equal(center.delta,0);assert.ok(axis.points.every(x=>Number.isFinite(x.mean)&&Number.isFinite(x.delta)));}});
+test("sensitivity rejects invalid multiplier designs",()=>{assert.throws(()=>runSensitivity({multipliers:[0.8,0.9,1.1]}));assert.throws(()=>runSensitivity({multipliers:[0.8,NaN,1]}));});
