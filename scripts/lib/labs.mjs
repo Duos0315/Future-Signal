@@ -1,5 +1,5 @@
 import { createRng, hashSeed, runExperiment } from "./network.mjs";
-export const MODEL_VERSION="1.1.0";
+export const MODEL_VERSION="1.2.0";
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const mean=a=>a.reduce((s,v)=>s+v,0)/Math.max(1,a.length);
 function swarmTrial(agents,radius,obstacles,rng){
