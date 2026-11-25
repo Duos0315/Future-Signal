@@ -23,16 +23,16 @@ function renderRecord(record){
 }
 async function loadData(){
  if(activeController)activeController.abort();
- activeController=new AbortController();const country=$("data-country").value,indicator=$("data-indicator").value,startYear=Number($("data-start-year").value),endYear=Number($("data-end-year").value);
+ const controller=new AbortController();activeController=controller;const country=$("data-country").value,indicator=$("data-indicator").value,startYear=Number($("data-start-year").value),endYear=Number($("data-end-year").value);
  $("data-status").textContent="Retrieving the public series…";$("load-worldbank-data").disabled=true;$("export-data-json").disabled=true;$("export-data-csv").disabled=true;$("data-results").hidden=true;currentRecord=null;
  try{
-  const record=await fetchWorldBankIndicator({country,indicator,startYear,endYear,signal:activeController.signal});
+  const record=await fetchWorldBankIndicator({country,indicator,startYear,endYear,signal:controller.signal});
   currentRecord=record;renderRecord(record);
   $("data-status").textContent="Source retrieved. Check the source, coverage and missing values before interpreting the series.";
  }catch(error){
   if(error.name==="AbortError")return;
   $("data-status").textContent="Data unavailable: "+(error.message||"The source could not be reached.")+" Try again later or open the source documentation.";
- }finally{$("load-worldbank-data").disabled=false;}
+ }finally{if(activeController===controller)$("load-worldbank-data").disabled=false;}
 }
 function init(){
  if(!$("data-explorer"))return;
