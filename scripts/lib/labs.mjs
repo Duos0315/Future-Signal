@@ -1,4 +1,5 @@
 import { createRng, hashSeed, runExperiment } from "./network.mjs";
+export const MODEL_VERSION="1.1.0";
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const mean=a=>a.reduce((s,v)=>s+v,0)/Math.max(1,a.length);
 function swarmTrial(agents,radius,obstacles,rng){
@@ -23,11 +24,11 @@ export function runLab({family="network",scale=60,pressure=20,noise=4,trials=100
  if(family==="network"){const nodes=Math.round(clamp(scale,12,120)/4)*4,degree=Math.min(Math.round(clamp(noise,1,10)),Math.floor((nodes-1)/2)),failureRate=clamp(pressure,0,80),r=runExperiment({nodes,degree,failureRate,trials,seed:[seed,family].join("|")});parameters={nodes,linkRadius:degree,failureRate};results=r.results.map(x=>({score:x.originalShare,conditionalConnectivity:x.conditionalConnectivity,survivalRate:x.survivalRate,survivors:x.survivors,largestCluster:x.largestCluster}));scoreLabel="Largest cluster / original network";secondaryLabel="Node survival rate";tertiaryLabel="Conditional connectivity";secondary=r.meanSurvivalRate;tertiary=r.meanConditionalConnectivity;}
  else if(family==="swarm"){const agents=Math.round(clamp(scale,12,120)),radius=clamp(noise,1,10),obstacles=clamp(pressure,0,80);parameters={agents,explorationBias:radius,obstacleDensity:obstacles};results=Array.from({length:trials},(_,i)=>({score:swarmTrial(agents,radius,obstacles,trialRng(i))}));scoreLabel="Explored reachable area";secondaryLabel="Agents per trial";tertiaryLabel="Obstacle density";secondary=agents;tertiary=obstacles;}
  else{const capacity=clamp(scale,12,120),recovery=clamp(noise*10,10,100),volatility=clamp(pressure,0,80),details=Array.from({length:trials},(_,i)=>energyTrial(capacity,recovery,volatility,trialRng(i)));parameters={capacity,recoveryRate:recovery,demandVolatility:volatility};results=details.map(x=>({score:x.score}));scoreLabel="Demand fully served";secondaryLabel="Mean stored reserve";tertiaryLabel="Unmet demand (units)";secondary=mean(details.map(x=>x.reserve));tertiary=mean(details.map(x=>x.unmet));}
- const scores=results.map(x=>x.score),meanQuaternary=family==="network"?mean(results.map(x=>x.largestCluster)):null;return{family,parameters,trials,scoreLabel,secondaryLabel,tertiaryLabel,mean:mean(scores),min:Math.min(...scores),max:Math.max(...scores),meanSecondary:secondary,meanTertiary:tertiary,meanQuaternary,results};
+ const scores=results.map(x=>x.score),meanQuaternary=family==="network"?mean(results.map(x=>x.largestCluster)):null;return{family,modelVersion:MODEL_VERSION,parameters,trials,scoreLabel,secondaryLabel,tertiaryLabel,mean:mean(scores),min:Math.min(...scores),max:Math.max(...scores),meanSecondary:secondary,meanTertiary:tertiary,meanQuaternary,results};
 }
 
 const median=values=>{const sorted=[...values].sort((a,b)=>a-b),m=Math.floor(sorted.length/2);return sorted.length%2?sorted[m]:(sorted[m-1]+sorted[m])/2;};
 export function compareLabs({family="network",baseline={},intervention={},trials=100,seed="future-signal"}={}){
  const a=runLab({family,...baseline,trials,seed}),b=runLab({family,...intervention,trials,seed}),deltas=b.results.map((x,i)=>x.score-a.results[i].score),wins=deltas.filter(x=>x>0).length,ties=deltas.filter(x=>x===0).length,meanDelta=deltas.reduce((s,v)=>s+v,0)/deltas.length;
- return {family,trials,baselineMean:a.mean,interventionMean:b.mean,meanDelta,medianDelta:median(deltas),minDelta:Math.min(...deltas),maxDelta:Math.max(...deltas),improvedTrials:wins,tiedTrials:ties,declinedTrials:trials-wins-ties,improvedRate:wins/trials*100,baseline:a,intervention:b,deltas};
+ return {family,modelVersion:MODEL_VERSION,trials,baselineMean:a.mean,interventionMean:b.mean,meanDelta,medianDelta:median(deltas),minDelta:Math.min(...deltas),maxDelta:Math.max(...deltas),improvedTrials:wins,tiedTrials:ties,declinedTrials:trials-wins-ties,improvedRate:wins/trials*100,baseline:a,intervention:b,deltas};
 }
