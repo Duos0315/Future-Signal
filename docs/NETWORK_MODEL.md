@@ -43,4 +43,4 @@ All three families use seeded pseudo-randomness and 100 trials by default. The s
 
  
 ## Paired scenario comparisons
-The comparison engine runs baseline and intervention scenarios for the same number of trials with the same initial deterministic random stream. It reports per-trial score deltas, mean and median delta, and counts of improved, tied and declined trials. Different settings can consume random values differently, so pairing is a repeatability aid rather than a strict statistical design. It does not estimate confidence intervals or establish causal effects.
+The comparison engine runs baseline and intervention scenarios for the same number of trials with the the same independently seeded random stream for each trial index. It reports per-trial score deltas, mean and median delta, and counts of improved, tied and declined trials. Models may consume random values differently within a trial, so paired seeds are a reproducibility aid rather than a strict statistical design. It does not estimate confidence intervals or establish causal effects.

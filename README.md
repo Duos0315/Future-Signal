@@ -97,3 +97,7 @@ Blueprints contain typed conceptual modules. Adding modules changes the bounded 
 The evidence ledger attaches HTTPS references to a signal and labels each source type and relationship (supports, challenges or context). Only URL format is checked; source contents and peer-review status are not automatically verified. Entries remain visibly user-submitted and unverified until human review.
 
 Daily signals carry a versioned world-state object with biome, anomaly and a transparent pressure modifier. The modifier changes the initial lab setup and visitors can override it.
+
+ 
+## Community review and contribution
+Signal proposals enter through GitHub Issue Forms and are automatically labelled for review. A maintainer must check testability, evidence quality, limitations and safety before any accepted proposal is added to the deterministic generator. Issue submissions are not automatically published as daily signals. See [CONTRIBUTING.md](CONTRIBUTING.md).

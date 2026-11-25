@@ -1,0 +1,46 @@
+name: Community proposal triage
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  issues: write
+
+jobs:
+  label-and-acknowledge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Classify and acknowledge submission
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const title = issue.title || "";
+            let labels = [];
+            let message = "";
+            if (title.startsWith("[Signal proposal]")) {
+              labels = ["community-proposal", "needs-review"];
+              message = "Thanks for proposing a signal. This submission is queued for **human review**. It is not automatically published or scientifically verified. A maintainer will assess the hypothesis, method, evidence, limitations and safety before deciding whether it can enter the project.";
+            } else if (title.startsWith("[Bug]")) {
+              labels = ["bug", "needs-triage"];
+              message = "Thanks for the reproducible report. It has been labelled for maintainer triage. If possible, please add browser details and the smallest set of steps that reproduces the issue.";
+            } else {
+              return;
+            }
+            for (const name of labels) {
+              try {
+                await github.rest.issues.getLabel({owner: context.repo.owner, repo: context.repo.repo, name});
+              } catch (error) {
+                if (error.status !== 404) throw error;
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name,
+                  color: name.includes("review") || name.includes("triage") ? "D4C5F9" : "1D76DB",
+                  description: "Automatically applied by the community intake workflow"
+                });
+              }
+            }
+            await github.rest.issues.addLabels({owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, labels});
+            await github.rest.issues.createComment({owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, body: message});

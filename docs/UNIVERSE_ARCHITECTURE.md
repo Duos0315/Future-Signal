@@ -26,13 +26,11 @@ GitHub Pages serves static HTML, CSS and JavaScript. GitHub Actions runs schedul
 - Browser localStorage is device-specific, not cloud sync or multiplayer.
 - Community proposals require human review.
 
-## Next evolution path
-1. Versioned world schema with explicit biomes, resources, anomalies and daily modifiers.
-2. Scenario engine with baseline, intervention and counterfactual comparisons.
-3. Typed blueprint components, connections, constraints and resource budgets.
-4. Evidence workflow with references, source quality, uncertainty and review status.
-5. Human-reviewed contribution pipeline into approved JSON records.
-6. Optional shared identity only if a backend or account-linked workflow becomes acceptable.
+## Remaining roadmap
+1. Add a richer counterfactual scenario editor and sensitivity analysis.
+2. Expand blueprint schemas with typed connections, constraints and resource budgets.
+3. Add optional source metadata and a maintainer verification state to approved evidence.
+4. Introduce cross-device shared identity only if a suitable backend becomes available and acceptable.
 
  
 ## Versioned world state (schema v1)
