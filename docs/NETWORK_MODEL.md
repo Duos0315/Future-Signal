@@ -20,7 +20,7 @@ For each trial:
 3. Let L be the size of the largest component, S the number of surviving nodes, and N the original node count.
 4. Report both 100 × L/S (conditional connectivity; 0 when S is zero) and 100 × L/N (overall retained connectivity).
 
-The interface summarizes 100 deterministic trials with the mean, minimum and maximum conditional-connectivity score, mean survivor count, mean largest-cluster size, and mean original-network share. The two percentages answer different questions: how intact the surviving network is, and how much of the original network remains in its largest connected component.
+The interface headline is **retained connectivity**: the mean of 100 × L/N. It also shows **node survival rate** (100 × S/N), **conditional connectivity** (100 × L/S, or 0 when S=0), and mean largest-component size. These metrics answer different questions: how much of the original network remains connected, how many nodes survived, and how intact the survivors are as a group.
 
 ## Reproducibility
 
@@ -28,9 +28,9 @@ The seed is derived from the selected network settings and signal identifier usi
 
 ## Interpretation limits
 
-This metric measures fragmentation conditional on survivors. It does not measure total service delivered, capacity, latency, resilience to targeted attacks, recovery time, or the cost of adding links. A high score at a high failure rate can still mean that very few nodes remain, so always inspect the failure-rate setting and survivor count.
+Retained connectivity prevents a 100% conditional-connectivity score from hiding node loss. Example: if N=60, S=51 and L=51, then retained connectivity is 85%, survival rate is 85%, and conditional connectivity is 100%. The remaining 51 nodes are perfectly connected to one another, but 9 of the original 60 nodes failed.
 
-The current model reports both the fraction of original nodes in the largest component and the fraction of surviving nodes in the largest component. A future model should compare random with targeted failures. Do not use this toy result to make engineering, safety, or investment decisions.
+These metrics do not measure total service delivered, capacity, latency, resilience to targeted attacks, recovery time, or the cost of adding links. A future model should compare random with targeted failures. Do not use this toy result to make engineering, safety, or investment decisions.
 
 ## Additional browser experiment families
 
@@ -44,3 +44,7 @@ All three families use seeded pseudo-randomness and 100 trials by default. The s
  
 ## Paired scenario comparisons
 The comparison engine runs baseline and intervention scenarios for the same number of trials with the the same independently seeded random stream for each trial index. It reports per-trial score deltas, mean and median delta, and counts of improved, tied and declined trials. Models may consume random values differently within a trial, so paired seeds are a reproducibility aid rather than a strict statistical design. It does not estimate confidence intervals or establish causal effects.
+
+## Reader guide
+
+The experiment interface includes two explanation levels. The beginner guide uses a familiar analogy and a worked example; the expert notes define variables, formulas and assumptions. Both views use the same model output. The network headline score is retained connectivity (largest component divided by the original node count), while survival rate and conditional connectivity remain separate diagnostics.
