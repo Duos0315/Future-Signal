@@ -7,7 +7,8 @@ export function runTrial({nodes,degree,failureRate},random){
  const alive=Array.from({length:nodes},()=>random()*100>=failureRate),seen=new Uint8Array(nodes);
  let largest=0,survivors=0;for(const state of alive)if(state)survivors++;
  for(let start=0;start<nodes;start++){if(!alive[start]||seen[start])continue;const stack=[start];seen[start]=1;let size=0;while(stack.length){const v=stack.pop();size++;for(let step=1;step<=degree;step++){const left=(v-step+nodes)%nodes,right=(v+step)%nodes;for(const next of [left,right])if(alive[next]&&!seen[next]){seen[next]=1;stack.push(next);}}}largest=Math.max(largest,size);}
- return {connectivity:survivors?largest/survivors*100:0,survivors,largestCluster:largest};
+ const conditionalConnectivity=survivors?largest/survivors*100:0,originalShare=largest/nodes*100,survivalRate=survivors/nodes*100;
+ return {connectivity:conditionalConnectivity,conditionalConnectivity,originalShare,survivalRate,survivors,largestCluster:largest};
 }
 export function runExperiment({nodes,degree,failureRate,trials=100,seed="future-signal"}){
  if(!Number.isInteger(trials)||trials<1||trials>10000)throw new RangeError("trials must be an integer from 1 to 10000");
@@ -15,6 +16,6 @@ export function runExperiment({nodes,degree,failureRate,trials=100,seed="future-
  const values=results.map(x=>x.connectivity),mean=values.reduce((a,b)=>a+b,0)/values.length;
  const meanSurvivors=results.reduce((sum,x)=>sum+x.survivors,0)/results.length;
  const meanLargest=results.reduce((sum,x)=>sum+x.largestCluster,0)/results.length;
- const meanOriginalShare=meanLargest/nodes*100;
- return {trials,mean,min:Math.min(...values),max:Math.max(...values),meanSurvivors,meanLargest,meanOriginalShare,results};
+ const meanOriginalShare=meanLargest/nodes*100,meanSurvivalRate=meanSurvivors/nodes*100;
+ return {trials,mean,min:Math.min(...values),max:Math.max(...values),meanSurvivors,meanLargest,meanOriginalShare,meanSurvivalRate,meanConditionalConnectivity:mean,results};
 }
