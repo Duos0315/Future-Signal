@@ -2,9 +2,9 @@
 
 **An open, evolving playground for science questions, engineering experiments and possible futures.**
 
-FUTURE//SIGNAL is a static web laboratory designed to run on GitHub Free. Its purpose is to turn cross-disciplinary ideas into testable questions, let visitors manipulate transparent toy models, and preserve a growing trail of daily signals.
+FUTURE//SIGNAL is a participatory digital evolution universe built as a static web laboratory for GitHub Free. It turns cross-disciplinary ideas into testable questions, gives visitors specialist perspectives and conceptual system blueprints, lets them run and compare transparent toy models, and preserves an evidence-labelled trail of discoveries and community-reviewed proposals.
 
-## What it does
+## The core loop\n\n**Daily signal → specialist council → blueprint → simulation → controlled comparison → evidence ledger → community review → next world cycle.** The goal is not to claim that software predicts the future; it is to make possible futures concrete enough to question, design, test and improve.\n\n## What it does
 
 - **Daily signal:** a date-seeded, deterministic rules engine combines science and engineering domains into a structured experiment prompt, with variables, caveats and three transparent research lenses (systems mapper, skeptic, experimentalist).
 - **Interactive experiment:** a shared, tested browser-side network model runs 100 reproducible trials, reports the largest connected component as a share of survivors and as a share of the original population, tracks mean survivors and cluster size, and plots trial outcomes.
@@ -59,13 +59,13 @@ node scripts/generate.mjs
 
 - `index.html` — semantic page structure and accessible controls
 - `styles.css` — responsive visual system
-- `app.js` — data loading, archive, saved signals, sharing and experiment engine
+- `app.js` — data loading, archive, saved signals, sharing and comparative experiment interface\n- `universe.js` — daily missions, specialist council, component blueprints, evidence ledger, local progression and world backup/restore
 - `data/daily.json` — latest published signal
 - `data/archive/index.json` — rolling archive (up to 365 entries)
 - `scripts/generate.mjs` — deterministic, schema-validated signal generator
 - `scripts/lib/network.mjs` — shared network experiment engine
 - `tests/core.test.mjs` — zero-dependency regression tests
-- `docs/NETWORK_MODEL.md` — model definition, metric and limitations
+- `docs/NETWORK_MODEL.md` — model definition, metric and limitations\n- `docs/UNIVERSE_ARCHITECTURE.md` — universe schema and technical boundaries\n- `docs/PRODUCT_VISION.md` — core product concept and evolution principles\n- `CONTRIBUTING.md` — proposal review and contribution process
 - `.github/workflows/daily-signal.yml` — scheduled publishing
 
 ## Contribute

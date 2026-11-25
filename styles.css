@@ -106,3 +106,5 @@ input[type=range]{accent-color:#c7ff57}
 @media(max-width:680px){.comparison-panel{grid-template-columns:1fr}.comparison-metrics b{font-size:18px}.blueprint-card{flex-direction:column}.blueprint-actions{flex-direction:row;flex-wrap:wrap}}
 
 .import-world-button{display:inline-flex;align-items:center;justify-content:center;padding:12px 15px;border:1px solid #b58cff80;color:#d4c1ff;background:#b58cff12;font:600 10px var(--mono);letter-spacing:.08em;cursor:pointer}.import-world-button input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}.import-world-button:focus-within{outline:2px solid #c7ff57;outline-offset:3px}
+
+.world-loop{max-width:1200px;margin:0 auto 22px;padding:14px 16px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;border:1px solid #39354b;background:#ffffff04;color:#c9c4d8;font:9px var(--mono);letter-spacing:.1em}.world-loop i{font-style:normal;color:#c7ff57}.world-loop span:last-child{color:#c7ff57}
