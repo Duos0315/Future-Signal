@@ -3,6 +3,18 @@
   "id": "FS-20261125",
   "domain": "NEUROSCIENCE + SOFTWARE",
   "family": "network",
+  "world": {
+    "version": 1,
+    "cycle": "2026-11-25",
+    "biome": "NEON BIOSPHERE",
+    "anomaly": "Dormant network transmission",
+    "modifier": {
+      "parameter": "pressure",
+      "delta": -5,
+      "label": "Dormant network transmission",
+      "description": "A calmer cycle reduces the default pressure setting."
+    }
+  },
   "title": "Find the tipping point in neural plasticity",
   "hook": "Many systems change gradually until one threshold causes a disproportionate shift. This prompt asks where that threshold might be.",
   "experiment": "Represent software modules as a ring network with local dependencies. Remove modules at random and measure the largest surviving connected subsystem across repeated trials.",
