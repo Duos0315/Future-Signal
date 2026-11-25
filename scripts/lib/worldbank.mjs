@@ -44,7 +44,7 @@ export async function fetchWorldBankIndicator({country="PAK",indicator="SP.POP.T
   requestedPeriod:{startYear,endYear},
   retrievedAt:new Date().toISOString(),
   sourceUrl:url,
-  apiMetadata:{page:payload[0].page??null,pages:payload[0].pages??null,total:payload[0].total??null},
+  apiMetadata:{page:payload[0].page??null,pages:payload[0].pages??null,total:payload[0].total??null,lastUpdated:payload[0].lastupdated??null},
   coverage:{returned:observations.length,withValues:valid.length,missing:observations.length-valid.length,firstYear:observations[0]?.year??null,lastYear:observations.at(-1)?.year??null},
   latestAvailable:valid.at(-1)||null,
   observations
