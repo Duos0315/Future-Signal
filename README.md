@@ -59,7 +59,9 @@ node scripts/generate.mjs
 
 - `index.html` — semantic page structure and accessible controls
 - `styles.css` — responsive visual system
-- `app.js` — data loading, archive, saved signals, sharing and comparative experiment interface\n- `universe.js` — daily missions, specialist council, component blueprints, evidence ledger, local progression and world backup/restore
+- `app.js` — data loading, archive, saved signals, sharing and comparative experiment interface
+- `data-explorer.js` — source-linked World Bank indicator explorer with JSON/CSV exports
+- `scripts/lib/worldbank.mjs` — validated World Bank Indicators API v2 adapter\n- `universe.js` — daily missions, specialist council, component blueprints, evidence ledger, local progression and world backup/restore
 - `data/daily.json` — latest published signal
 - `data/archive/index.json` — rolling archive (up to 365 entries)
 - `scripts/generate.mjs` — deterministic, schema-validated signal generator
@@ -103,6 +105,10 @@ Daily signals carry a versioned world-state object with biome, anomaly and a tra
  
 ## Community review and contribution
 Signal proposals enter through GitHub Issue Forms and are automatically labelled for review. A maintainer must check testability, evidence quality, limitations and safety before any accepted proposal is added to the deterministic generator. Issue submissions are not automatically published as daily signals. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Public data explorer
+
+The open-data panel retrieves World Development Indicators through the official World Bank Indicators API v2. It records the requested period, source URL, retrieval time, observation coverage and missing values. The panel is not a real-time alert service; many World Bank series are annual and may be revised. See [the official API documentation](https://datahelpdesk.worldbank.org/knowledgebase/articles/889392).
 
 ## Product and research standards
 
