@@ -48,3 +48,9 @@ The comparison engine runs baseline and intervention scenarios for the same numb
 ## Reader guide
 
 The experiment interface includes two explanation levels. The beginner guide uses a familiar analogy and a worked example; the expert notes define variables, formulas and assumptions. Both views use the same model output. The network headline score is retained connectivity (largest component divided by the original node count), while survival rate and conditional connectivity remain separate diagnostics.
+
+## One-factor sensitivity analysis
+
+The browser exposes a five-point one-factor-at-a-time sweep for each of the three model controls (80%, 90%, 100%, 110% and 120% of the selected starting value, bounded by model limits). It changes one control per sweep and holds the other requested controls fixed. Each point uses the same deterministic seed and trial count as the baseline. Effective normalized parameters are included in each point. Boundary clamping can cause repeated effective values; read the effective parameters rather than assuming every multiplier produced a distinct model configuration.
+
+This is a descriptive sensitivity check for a synthetic model. It is not a confidence interval, statistical significance test, causal estimate or real-world sensitivity assessment.
