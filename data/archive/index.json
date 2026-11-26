@@ -1,6 +1,51 @@
 {
-  "updated": "2026-11-25",
+  "updated": "2026-11-26",
   "items": [
+    {
+      "date": "2026-11-26",
+      "id": "FS-20261126",
+      "domain": "MATERIALS + ENERGY",
+      "family": "energy",
+      "world": {
+        "version": 1,
+        "cycle": "2026-11-26",
+        "biome": "ORBITAL FRONTIER",
+        "anomaly": "Resource loop instability",
+        "modifier": {
+          "parameter": "pressure",
+          "delta": 5,
+          "label": "Resource loop instability",
+          "description": "A volatile cycle raises the default pressure setting."
+        }
+      },
+      "title": "Find the tipping point in phase-change materials",
+      "hook": "Many systems change gradually until one threshold causes a disproportionate shift. This prompt asks where that threshold might be.",
+      "experiment": "Use a bounded stored-energy reserve as a first-order thermal-storage proxy. Vary storage capacity, replenishment and changing heat demand; measure the share of time demand is fully served.",
+      "variables": [
+        "storage capacity",
+        "replenishment rate",
+        "heat-demand volatility"
+      ],
+      "question": "Can a building stay comfortable with less active cooling?",
+      "caveat": "The current resource model is only a storage-and-demand analogy; it does not simulate temperature, heat transfer, phase change or measured material properties.",
+      "lenses": [
+        {
+          "role": "Systems mapper",
+          "task": "Map the system boundary, key components, feedback loops and possible bottlenecks."
+        },
+        {
+          "role": "Skeptic",
+          "task": "State one observation that would weaken this hypothesis. Identify a competing explanation."
+        },
+        {
+          "role": "Experimentalist",
+          "task": "Choose a control condition, change one variable, and define a measurable outcome before running the test."
+        }
+      ],
+      "generated_by": "FUTURE//SIGNAL deterministic rules engine",
+      "model": "rules-v4",
+      "status": "hypothesis-prompt"
+    },
     {
       "date": "2026-11-25",
       "id": "FS-20261125",
