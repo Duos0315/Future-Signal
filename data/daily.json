@@ -1,30 +1,30 @@
 {
-  "date": "2026-11-26",
-  "id": "FS-20261126",
-  "domain": "MATERIALS + ENERGY",
-  "family": "energy",
+  "date": "2026-11-27",
+  "id": "FS-20261127",
+  "domain": "BIOLOGY + COMPUTING",
+  "family": "network",
   "world": {
     "version": 1,
-    "cycle": "2026-11-26",
-    "biome": "ORBITAL FRONTIER",
-    "anomaly": "Resource loop instability",
+    "cycle": "2026-11-27",
+    "biome": "QUANTUM GARDENS",
+    "anomaly": "Hidden dependency detected",
     "modifier": {
       "parameter": "pressure",
       "delta": 5,
-      "label": "Resource loop instability",
-      "description": "A volatile cycle raises the default pressure setting."
+      "label": "Hidden dependency detected",
+      "description": "A dependency anomaly raises the default pressure setting."
     }
   },
-  "title": "Find the tipping point in phase-change materials",
+  "title": "Find the tipping point in mycelium networks",
   "hook": "Many systems change gradually until one threshold causes a disproportionate shift. This prompt asks where that threshold might be.",
-  "experiment": "Use a bounded stored-energy reserve as a first-order thermal-storage proxy. Vary storage capacity, replenishment and changing heat demand; measure the share of time demand is fully served.",
+  "experiment": "Represent modules as a ring graph with local dependencies. Remove nodes at random and measure the largest surviving connected subsystem across repeated trials.",
   "variables": [
-    "storage capacity",
-    "replenishment rate",
-    "heat-demand volatility"
+    "module count",
+    "dependency radius",
+    "module failure rate"
   ],
-  "question": "Can a building stay comfortable with less active cooling?",
-  "caveat": "The current resource model is only a storage-and-demand analogy; it does not simulate temperature, heat transfer, phase change or measured material properties.",
+  "question": "Can local rules create robust global coordination?",
+  "caveat": "Graph-connectivity analogy only; it does not simulate packet routing, delivery success, neural activity or biological adaptation.",
   "lenses": [
     {
       "role": "Systems mapper",

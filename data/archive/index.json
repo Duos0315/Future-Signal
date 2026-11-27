@@ -1,6 +1,51 @@
 {
-  "updated": "2026-11-26",
+  "updated": "2026-11-27",
   "items": [
+    {
+      "date": "2026-11-27",
+      "id": "FS-20261127",
+      "domain": "BIOLOGY + COMPUTING",
+      "family": "network",
+      "world": {
+        "version": 1,
+        "cycle": "2026-11-27",
+        "biome": "QUANTUM GARDENS",
+        "anomaly": "Hidden dependency detected",
+        "modifier": {
+          "parameter": "pressure",
+          "delta": 5,
+          "label": "Hidden dependency detected",
+          "description": "A dependency anomaly raises the default pressure setting."
+        }
+      },
+      "title": "Find the tipping point in mycelium networks",
+      "hook": "Many systems change gradually until one threshold causes a disproportionate shift. This prompt asks where that threshold might be.",
+      "experiment": "Represent modules as a ring graph with local dependencies. Remove nodes at random and measure the largest surviving connected subsystem across repeated trials.",
+      "variables": [
+        "module count",
+        "dependency radius",
+        "module failure rate"
+      ],
+      "question": "Can local rules create robust global coordination?",
+      "caveat": "Graph-connectivity analogy only; it does not simulate packet routing, delivery success, neural activity or biological adaptation.",
+      "lenses": [
+        {
+          "role": "Systems mapper",
+          "task": "Map the system boundary, key components, feedback loops and possible bottlenecks."
+        },
+        {
+          "role": "Skeptic",
+          "task": "State one observation that would weaken this hypothesis. Identify a competing explanation."
+        },
+        {
+          "role": "Experimentalist",
+          "task": "Choose a control condition, change one variable, and define a measurable outcome before running the test."
+        }
+      ],
+      "generated_by": "FUTURE//SIGNAL deterministic rules engine",
+      "model": "rules-v4",
+      "status": "hypothesis-prompt"
+    },
     {
       "date": "2026-11-26",
       "id": "FS-20261126",
