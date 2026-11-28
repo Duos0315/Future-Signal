@@ -1,30 +1,30 @@
 {
-  "date": "2026-11-27",
-  "id": "FS-20261127",
-  "domain": "BIOLOGY + COMPUTING",
+  "date": "2026-11-28",
+  "id": "FS-20261128",
+  "domain": "GEOMETRY + ARCHITECTURE",
   "family": "network",
   "world": {
     "version": 1,
-    "cycle": "2026-11-27",
-    "biome": "QUANTUM GARDENS",
-    "anomaly": "Hidden dependency detected",
+    "cycle": "2026-11-28",
+    "biome": "OCEANIC NETWORKS",
+    "anomaly": "Distributed route discovery",
     "modifier": {
       "parameter": "pressure",
-      "delta": 5,
-      "label": "Hidden dependency detected",
-      "description": "A dependency anomaly raises the default pressure setting."
+      "delta": -5,
+      "label": "Distributed route discovery",
+      "description": "A new connection lowers the default pressure setting."
     }
   },
-  "title": "Find the tipping point in mycelium networks",
+  "title": "Find the tipping point in minimal surfaces",
   "hook": "Many systems change gradually until one threshold causes a disproportionate shift. This prompt asks where that threshold might be.",
-  "experiment": "Represent modules as a ring graph with local dependencies. Remove nodes at random and measure the largest surviving connected subsystem across repeated trials.",
+  "experiment": "Represent structural modules as nodes and load-transfer connections as links. Remove modules at random and compare the largest connected subsystem as a topology proxy.",
   "variables": [
     "module count",
-    "dependency radius",
+    "connection radius",
     "module failure rate"
   ],
-  "question": "Can local rules create robust global coordination?",
-  "caveat": "Graph-connectivity analogy only; it does not simulate packet routing, delivery success, neural activity or biological adaptation.",
+  "question": "How does connection layout affect continuity in a modular structure?",
+  "caveat": "Connectivity proxy only; it does not calculate stress, deformation, buckling or structural safety.",
   "lenses": [
     {
       "role": "Systems mapper",

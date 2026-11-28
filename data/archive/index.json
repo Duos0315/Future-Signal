@@ -1,6 +1,51 @@
 {
-  "updated": "2026-11-27",
+  "updated": "2026-11-28",
   "items": [
+    {
+      "date": "2026-11-28",
+      "id": "FS-20261128",
+      "domain": "GEOMETRY + ARCHITECTURE",
+      "family": "network",
+      "world": {
+        "version": 1,
+        "cycle": "2026-11-28",
+        "biome": "OCEANIC NETWORKS",
+        "anomaly": "Distributed route discovery",
+        "modifier": {
+          "parameter": "pressure",
+          "delta": -5,
+          "label": "Distributed route discovery",
+          "description": "A new connection lowers the default pressure setting."
+        }
+      },
+      "title": "Find the tipping point in minimal surfaces",
+      "hook": "Many systems change gradually until one threshold causes a disproportionate shift. This prompt asks where that threshold might be.",
+      "experiment": "Represent structural modules as nodes and load-transfer connections as links. Remove modules at random and compare the largest connected subsystem as a topology proxy.",
+      "variables": [
+        "module count",
+        "connection radius",
+        "module failure rate"
+      ],
+      "question": "How does connection layout affect continuity in a modular structure?",
+      "caveat": "Connectivity proxy only; it does not calculate stress, deformation, buckling or structural safety.",
+      "lenses": [
+        {
+          "role": "Systems mapper",
+          "task": "Map the system boundary, key components, feedback loops and possible bottlenecks."
+        },
+        {
+          "role": "Skeptic",
+          "task": "State one observation that would weaken this hypothesis. Identify a competing explanation."
+        },
+        {
+          "role": "Experimentalist",
+          "task": "Choose a control condition, change one variable, and define a measurable outcome before running the test."
+        }
+      ],
+      "generated_by": "FUTURE//SIGNAL deterministic rules engine",
+      "model": "rules-v4",
+      "status": "hypothesis-prompt"
+    },
     {
       "date": "2026-11-27",
       "id": "FS-20261127",
